@@ -3,7 +3,7 @@ import { Animated, Dimensions, Image, StyleSheet, View } from "react-native";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
-export default function SplashScreen({ navigation }) {
+export default function SplashScreen({ navigation }: any) {
   const animation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {

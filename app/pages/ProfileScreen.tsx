@@ -1,16 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "app/types/RootStackParamList";
 import {
   FlatList,
   Image,
+  ImageBackground,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 
-const profileName = "João Marcelino";
-const profilePhoto = "https://i.pravatar.cc/150?img=12"; // exemplo
+const profileName = "João Vítor Marcelino";
+const profilePhoto = "https://i.pravatar.cc/150?img=12";
 
 const settings = [
   {
@@ -33,12 +36,6 @@ const settings = [
   },
   {
     id: "4",
-    label: "Segurança",
-    icon: "lock-closed-outline",
-    screen: "Security",
-  },
-  {
-    id: "5",
     label: "Configurações",
     icon: "settings-outline",
     screen: "Settings",
@@ -46,9 +43,10 @@ const settings = [
 ];
 
 export default function ProfileScreen() {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: any) => (
     <TouchableOpacity
       style={styles.itemContainer}
       onPress={() => navigation.navigate(item.screen)}
@@ -62,10 +60,13 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
+      <ImageBackground
+        source={require("../assets/banners/bannerProfile.jpg")}
+        style={styles.header}
+      >
         <Image source={{ uri: profilePhoto }} style={styles.profileImage} />
         <Text style={styles.profileName}>{profileName}</Text>
-      </View>
+      </ImageBackground>
 
       {/* Lista de configurações */}
       <FlatList
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 22,
     fontWeight: "700",
-    color: "#333",
+    color: "#fff",
   },
   itemContainer: {
     flexDirection: "row",

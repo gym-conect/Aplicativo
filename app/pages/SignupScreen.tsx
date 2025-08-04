@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native"; // 👈 Import necessário
+import { useNavigation } from "@react-navigation/native";
 import {
   Image,
   KeyboardAvoidingView,
@@ -12,12 +12,14 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const LoginScreen = () => {
-  const navigation = useNavigation(); // 👈 Instância de navegação
+const SignupScreen = () => {
+  const navigation = useNavigation();
 
-  const handleLogin = () => {
-    navigation.replace("MainTabs");
-  };
+  // const handleSignup = () => {
+  //   // Aqui você pode adicionar validações e lógica de cadastro
+  //   // Após cadastro, navegar para a tela principal ou login
+  //   navigation.replace("MainTabs");
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -40,6 +42,20 @@ const LoginScreen = () => {
           <View style={styles.form}>
             <TextInput
               style={styles.input}
+              placeholder="Nome"
+              autoCapitalize="words"
+              placeholderTextColor="#888"
+            />
+
+            <TextInput
+              style={styles.input}
+              placeholder="Telefone"
+              keyboardType="phone-pad"
+              placeholderTextColor="#888"
+            />
+
+            <TextInput
+              style={styles.input}
               placeholder="Email"
               keyboardType="email-address"
               autoCapitalize="none"
@@ -53,19 +69,11 @@ const LoginScreen = () => {
               placeholderTextColor="#888"
             />
 
-            <TouchableOpacity style={styles.forgotButton}>
-              <Text style={styles.forgotText}>Esqueceu a senha?</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-              <Text style={styles.loginText}>Acessar</Text>
-            </TouchableOpacity>
-
             <TouchableOpacity
-              style={styles.signupLink}
-              onPress={() => navigation.navigate("Signup")}
+              style={styles.signupButton}
+              // onPress={handleSignup}
             >
-              <Text style={styles.signupText}>Criar uma conta</Text>
+              <Text style={styles.signupText}>Cadastrar</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -74,7 +82,7 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default SignupScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -88,8 +96,8 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
   },
   logo: {
-    width: 140,
-    height: 140,
+    width: 120,
+    height: 120,
     alignSelf: "center",
     marginBottom: 40,
   },
@@ -106,34 +114,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "#f9f9f9",
   },
-  forgotButton: {
-    alignSelf: "flex-end",
-    marginBottom: 24,
-  },
-  forgotText: {
-    color: "#1DB954",
-    fontSize: 14,
-  },
-  loginButton: {
+  signupButton: {
     backgroundColor: "#1DB954",
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: "center",
+    marginTop: 8,
   },
-  loginText: {
+  signupText: {
     color: "#fff",
     fontSize: 16,
-    fontWeight: "600",
-  },
-
-  signupLink: {
-    marginTop: 16,
-    alignItems: "center",
-  },
-
-  signupText: {
-    color: "#1DB954",
-    fontSize: 14,
     fontWeight: "600",
   },
 });

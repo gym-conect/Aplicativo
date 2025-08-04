@@ -1,19 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 
 const favoriteStores = [
   {
     id: "1",
-    name: "Smart Fit - Centro",
-    category: "Academia",
-    distance: "2,1 km",
-    status: "Aberto",
-    price: "Grátis",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/24/Smart_fit_logo.svg",
-  },
-  {
-    id: "2",
     name: "Nutrição com Carla",
     category: "Nutricionista",
     distance: "3,4 km",
@@ -22,7 +12,7 @@ const favoriteStores = [
     logo: "https://cdn-icons-png.flaticon.com/512/2718/2718224.png", // ícone de nutrição
   },
   {
-    id: "3",
+    id: "2",
     name: "Personal Lucas Oliveira",
     category: "Personal Trainer",
     distance: "1,2 km",
@@ -31,7 +21,7 @@ const favoriteStores = [
     logo: "https://cdn-icons-png.flaticon.com/512/1048/1048953.png", // ícone de treino
   },
   {
-    id: "4",
+    id: "3",
     name: "Clube do Whey",
     category: "Suplementos",
     distance: "4,9 km",
@@ -40,7 +30,7 @@ const favoriteStores = [
     logo: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png", // ícone de suplemento
   },
   {
-    id: "5",
+    id: "4",
     name: "Yoga com Ana",
     category: "Yoga",
     distance: "2,7 km",
@@ -51,24 +41,7 @@ const favoriteStores = [
 ];
 
 export default function FavoritesScreen() {
-  const [currentAnimation, setCurrentAnimation] = useState(0);
-
-  // Trocar animação a cada 4 segundos
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentAnimation((prev) => (prev + 1) % 3);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Importando animações
-  const animations = [
-    require("../assets/animation/animation1.json"),
-    require("../assets/animation/animation2.json"),
-    require("../assets/animation/animation3.json"),
-  ];
-
-  const renderStore = ({ item }) => (
+  const renderStore = ({ item }: any) => (
     <View style={styles.storeItem}>
       <Image source={{ uri: item.logo }} style={styles.logo} />
       <View style={{ flex: 1, marginLeft: 12 }}>
@@ -87,21 +60,13 @@ export default function FavoritesScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Header com animação e textos */}
       <View style={styles.header}>
-        {/* <LottieView
-          source={animations[currentAnimation]}
-          autoPlay
-          loop
-          style={styles.animation}
-        /> */}
-        <Text style={styles.title}>lugares guardadas no seu ♡</Text>
         <Text style={styles.subtitle}>
-          aqui você encontra seus lugares favoritos, para relembrar momentos
+          aqui você encontra academias, studios ou profissionais que você
+          favoritou
         </Text>
       </View>
 
-      {/* Lista */}
       <FlatList
         data={favoriteStores}
         keyExtractor={(item) => item.id}

@@ -1,4 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "app/types/RootStackParamList";
 import {
   Image,
   KeyboardAvoidingView,
@@ -12,12 +14,11 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const SignupScreen = () => {
-  const navigation = useNavigation();
+const LoginScreen = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const handleSignup = () => {
-    // Aqui você pode adicionar validações e lógica de cadastro
-    // Após cadastro, navegar para a tela principal ou login
+  const handleLogin = () => {
     navigation.replace("MainTabs");
   };
 
@@ -31,29 +32,13 @@ const SignupScreen = () => {
           contentContainerStyle={styles.scrollContainer}
           keyboardShouldPersistTaps="handled"
         >
-          {/* Logo */}
           <Image
             source={require("../assets/logo.png")}
             style={styles.logo}
             resizeMode="contain"
           />
 
-          {/* Form */}
           <View style={styles.form}>
-            <TextInput
-              style={styles.input}
-              placeholder="Nome"
-              autoCapitalize="words"
-              placeholderTextColor="#888"
-            />
-
-            <TextInput
-              style={styles.input}
-              placeholder="Telefone"
-              keyboardType="phone-pad"
-              placeholderTextColor="#888"
-            />
-
             <TextInput
               style={styles.input}
               placeholder="Email"
@@ -69,11 +54,19 @@ const SignupScreen = () => {
               placeholderTextColor="#888"
             />
 
+            <TouchableOpacity style={styles.forgotButton}>
+              <Text style={styles.forgotText}>Esqueceu a senha?</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+              <Text style={styles.loginText}>Acessar</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity
-              style={styles.signupButton}
-              onPress={handleSignup}
+              style={styles.signupLink}
+              onPress={() => navigation.navigate("Signup")}
             >
-              <Text style={styles.signupText}>Cadastrar</Text>
+              <Text style={styles.signupText}>Criar uma conta</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -82,7 +75,7 @@ const SignupScreen = () => {
   );
 };
 
-export default SignupScreen;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -96,8 +89,8 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
   },
   logo: {
-    width: 120,
-    height: 120,
+    width: 140,
+    height: 140,
     alignSelf: "center",
     marginBottom: 40,
   },
@@ -114,16 +107,34 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "#f9f9f9",
   },
-  signupButton: {
+  forgotButton: {
+    alignSelf: "flex-end",
+    marginBottom: 24,
+  },
+  forgotText: {
+    color: "#1DB954",
+    fontSize: 14,
+  },
+  loginButton: {
     backgroundColor: "#1DB954",
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: "center",
-    marginTop: 8,
   },
-  signupText: {
+  loginText: {
     color: "#fff",
     fontSize: 16,
+    fontWeight: "600",
+  },
+
+  signupLink: {
+    marginTop: 16,
+    alignItems: "center",
+  },
+
+  signupText: {
+    color: "#1DB954",
+    fontSize: 14,
     fontWeight: "600",
   },
 });
