@@ -53,12 +53,6 @@ export default function TokenScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.subtitle}>
-          Aqui você encontra seus tokens de acesso para entrar nas academias.
-        </Text>
-      </View>
-
       <SectionList
         sections={academias}
         keyExtractor={(item) => item.id}

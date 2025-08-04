@@ -2,10 +2,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import CategoryComponent from "../components/CategoryComponent";
+import LocationScreen from "../components/LocationComponent";
+import NotificationsScreen from "../components/NotificationsComponent";
 import ProfileComponent from "../components/ProfileComponent";
 import SplashScreen from "../components/SplashComponent";
+import AccountScreen from "../pages/AccountScreen";
 import CalendarScreen from "../pages/CalendarScreen";
 import FavoritesScreen from "../pages/FavoritesScreen";
 import HomeScreen from "../pages/HomeScreen";
@@ -18,13 +20,12 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function MainTabs() {
-  // Mapeamento de nome de rota para ícones válidos
+  // Ícones para cada aba
   const iconsMap: Record<string, keyof typeof Ionicons.glyphMap> = {
     Home: "home-outline",
     Agenda: "calendar-outline",
     Favorites: "star-outline",
     Perfil: "person-outline",
-    Token: "key-outline",
   };
 
   return (
@@ -43,7 +44,6 @@ function MainTabs() {
       <Tab.Screen name="Agenda" component={CalendarScreen} />
       <Tab.Screen name="Favorites" component={FavoritesScreen} />
       <Tab.Screen name="Perfil" component={ProfileScreen} />
-      <Tab.Screen name="Token" component={TokenScreen} />
     </Tab.Navigator>
   );
 }
@@ -52,19 +52,64 @@ export default function StackNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {/* Telas iniciais */}
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
+
+        {/* Navegação principal em abas */}
         <Stack.Screen name="MainTabs" component={MainTabs} />
+
+        {/* Telas de navegação em pilha */}
         <Stack.Screen
           name="Category"
           component={CategoryComponent}
-          options={{ headerShown: false, animation: "slide_from_right" }}
+          options={{ animation: "slide_from_right" }}
         />
         <Stack.Screen
           name="ProfileComponent"
           component={ProfileComponent}
-          options={{ headerShown: false, animation: "slide_from_right" }}
+          options={{ animation: "slide_from_right" }}
+        />
+
+        <Stack.Screen
+          name="TokenScreen"
+          component={TokenScreen}
+          options={{
+            headerShown: true,
+            title: "Meus Tokens",
+            animation: "slide_from_right",
+          }}
+        />
+
+        {/* Subtelas do perfil */}
+        <Stack.Screen
+          name="NotificationsScreen"
+          component={NotificationsScreen}
+          options={{
+            headerShown: true,
+            title: "Notificações",
+            animation: "slide_from_right",
+          }}
+        />
+
+        <Stack.Screen
+          name="LocationScreen"
+          component={LocationScreen}
+          options={{
+            headerShown: true,
+            title: "Localização",
+            animation: "slide_from_right",
+          }}
+        />
+        <Stack.Screen
+          name="AccountScreen"
+          component={AccountScreen}
+          options={{
+            headerShown: true,
+            title: "Dados da Conta",
+            animation: "slide_from_right",
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

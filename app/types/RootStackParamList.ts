@@ -6,10 +6,11 @@ export type RootStackParamList = {
   MainTabs: undefined;
   Category: undefined;
   ProfileComponent: undefined;
-  Notifications: undefined;
-  Location: undefined;
-  PersonalData: undefined;
-  Settings: undefined;
+  NotificationsComponent: undefined;
+  LocationScreen: undefined;
+  AccountScreen: undefined;
+  TokenScreen: undefined;
+  SettingsScreen: undefined;
 };
 
 export type MainTabParamList = {

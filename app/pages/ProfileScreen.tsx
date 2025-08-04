@@ -6,6 +6,7 @@ import {
   FlatList,
   Image,
   ImageBackground,
+  Linking,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -20,25 +21,25 @@ const settings = [
     id: "1",
     label: "Notificações",
     icon: "notifications-outline",
-    screen: "Notifications",
+    screen: "NotificationsScreen",
   },
   {
     id: "2",
     label: "Localização precisa",
     icon: "location-outline",
-    screen: "Location",
+    screen: "LocationScreen",
   },
   {
     id: "3",
     label: "Dados da Conta",
     icon: "person-outline",
-    screen: "PersonalData",
+    screen: "AccountScreen",
   },
   {
     id: "4",
-    label: "Configurações",
-    icon: "settings-outline",
-    screen: "Settings",
+    label: "Meus Tokens",
+    icon: "key-outline",
+    screen: "TokenScreen",
   },
 ];
 
@@ -48,18 +49,18 @@ export default function ProfileScreen() {
 
   const renderItem = ({ item }: any) => (
     <TouchableOpacity
-      style={styles.itemContainer}
+      style={styles.card}
       onPress={() => navigation.navigate(item.screen)}
     >
-      <Ionicons name={item.icon} size={24} color="#333" style={{ width: 30 }} />
-      <Text style={styles.itemLabel}>{item.label}</Text>
-      <Ionicons name="chevron-forward" size={20} color="#999" />
+      <Ionicons name={item.icon} size={22} color="#2c3e50" />
+      <Text style={styles.cardText}>{item.label}</Text>
+      <Ionicons name="chevron-forward" size={20} color="#ccc" />
     </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
-      {/* Header */}
+      {/* Header com imagem e gradiente */}
       <ImageBackground
         source={require("../assets/banners/bannerProfile.jpg")}
         style={styles.header}
@@ -73,9 +74,28 @@ export default function ProfileScreen() {
         data={settings}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
-        contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16 }}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        contentContainerStyle={{ padding: 16 }}
+        ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
       />
+
+      {/* Link para informações do app */}
+      <TouchableOpacity
+        onPress={() => Linking.openURL("https://gymconect.com.br/info")}
+        style={{ alignItems: "center", marginVertical: 10 }}
+      >
+        <Text style={styles.linkText}>
+          Para informações do aplicativo clique aqui
+        </Text>
+      </TouchableOpacity>
+
+      {/* Botão de sair */}
+      <TouchableOpacity
+        onPress={() => console.log("Usuário saiu")}
+        style={styles.logoutButton}
+      >
+        <Ionicons name="log-out-outline" size={18} color="#fff" />
+        <Text style={styles.logoutText}>Sair</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -83,37 +103,70 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#fefefe",
   },
   header: {
-    paddingVertical: 32,
+    paddingVertical: 40,
     alignItems: "center",
-    backgroundColor: "#f7f7f7",
+    justifyContent: "center",
+    backgroundColor: "#222",
   },
   profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 12,
+    width: 96,
+    height: 96,
+    borderRadius: 48,
+    borderWidth: 3,
+    borderColor: "#fff",
+    marginBottom: 8,
   },
   profileName: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "700",
     color: "#fff",
+    marginTop: 4,
   },
-  itemContainer: {
+  card: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 14,
+    backgroundColor: "#f9f9f9",
+    padding: 14,
+    borderRadius: 12,
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 4,
   },
-  itemLabel: {
+  cardText: {
     flex: 1,
     fontSize: 16,
-    color: "#333",
-    marginLeft: 8,
+    marginLeft: 12,
+    color: "#2c3e50",
+    fontWeight: "500",
   },
-  separator: {
-    height: 1,
-    backgroundColor: "#eee",
+  logoutButton: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#e74c3c",
+    paddingVertical: 12,
+    marginHorizontal: 16,
+    marginBottom: 32,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 2,
+  },
+  logoutText: {
+    color: "#fff",
+    fontSize: 15,
+    fontWeight: "600",
+    marginLeft: 6,
+  },
+  linkText: {
+    color: "#2980b9",
+    fontSize: 13,
+    textDecorationLine: "underline",
   },
 });
